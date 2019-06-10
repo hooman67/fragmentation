@@ -1,6 +1,11 @@
 ###############################################################################
 ##################  FDMLAlgo DRIVER (for debugging)  ##########################
 ###############################################################################
+#Put the path to fmdl_algo project here
+import sys
+sys.path.append('/media/hooman/hsSsdPartUbuntu/FM_PROJECT/FMDL_3.0/fmdl_algo')
+
+
 def run_FMDLAlgo():
     global fmdlAlgo
     global results
