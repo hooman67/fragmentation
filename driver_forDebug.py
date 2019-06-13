@@ -5,7 +5,7 @@
 import sys
 sys.path.append('/media/hooman/hsSsdPartUbuntu/FM_PROJECT/FMDL_3.0/fmdl_algo')
 
-
+import json
 def run_FMDLAlgo():
     global fmdlAlgo
     global results
@@ -26,6 +26,14 @@ def run_FMDLAlgo():
                 
                 
         results = fmdlAlgo.execute(b, shovelConfig)
+
+
+        print('\n\n\n**********************')
+        print('results')
+        print(results)
+        print('ser')
+        ser = json.dumps(results)
+        print('**********************\n\n\n')
 
         
         print("\n\nDriver received this results:\n")
@@ -59,9 +67,7 @@ def run_FMDLAlgo():
                     plt.imshow(img)
                     plt.show()
 
-                
-                if res['description'] == 'output of roiDelineator, ouput of\
-             boxDetector, and the approximated roi boundary points all overlayed on the input image':
+                if res['description'] == 'output of roiDelineator, ouput of"                " boxDetector, and the approximated roi boundary points all overlayed on the input image':
 
                         imgdata = base64.b64decode(res['image'])
                         img = PIL.Image.open(io.BytesIO(imgdata))
@@ -75,9 +81,9 @@ if __name__ == "__main__":
     from fmdlAlgo.FMDLAlgo import FMDLAlgo
 
 
-    runOnSingleImage = True
-    saveResults = False
-    displayResults = True
+    runOnSingleImage = False
+    saveResults = True
+    displayResults = False
     
 
     ############################# FMDL3.0 Networks ####################################
@@ -92,19 +98,42 @@ if __name__ == "__main__":
 
 
     ############################### FMDL3.1 Networks ####################################
-    boxDetectorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Backhoe_Release-2.2_roiDelineatorVersion-2_bbDetectorVersion-3/bbDetector.pb'
-    roiDelineatorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Backhoe_Release-2.2_roiDelineatorVersion-2_bbDetectorVersion-3/roiDelineator.h5'
+    boxDetectorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/BucyrusAndPnH_Release-2_roiDelineatorVersion-1_bbDetectorVersion-1/bbDetector.pb'
+    roiDelineatorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/BucyrusAndPnH_Release-2_roiDelineatorVersion-1_bbDetectorVersion-1/roiDelineator.h5'
     #####################################################################################
 
 
-    testdirPath = '/media/hooman/hsSsdPartUbuntu/FM_PROJECT/dataPreparation/FMDL_3.1/backhoe/hsTestSetOfHardImages/'
-    saveResultsPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/productionBugs/decidingWhether2AddSurvalanceImaseForBackhoeTelfer/Telfer/EX011/2019.06.03/Surveillance/Raw/preds/'
+    testdirPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/productionBugs/releaseingFML3.2Bugs/Frame/'
+    saveResultsPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/productionBugs/releaseingFML3.2Bugs/preds/'
     
 
-    testFilePath = '/media/hooman/hsSsdPartUbuntu/FM_PROJECT/dataPreparation/FMDL_3.1/backhoe/hsTestSetOfHardImages/FMDL_2018.10.04_06.55.39.png'
-    testFileName = 'FMDL_2018.10.04_06.55.39.png'
+    testFilePath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/productionBugs/releaseingFML3.2Bugs/FMDL_2018.07.31_11.15.15.png'
+    testFileName = 'FMDL_2018.07.31_11.15.15.png'
 
 
+    shovelConfig = {
+        "measuredBucketWidthCM":              300,
+        "boxDetectorScoreThresholdBucket":    0.5,
+        "boxDetectorScoreThresholdMatInside": 0.5,
+        "boxDetectorScoreThresholdCase":      0.5,
+        "roiDelineatorScoreThreshold":        0.2,
+        "minContourArea":                     12000,
+        "closingKernelSize":                  7,
+        "closingIterations":                  4,
+        "erosionKernelSize":                  7,
+        "erosionIterations":                  4,
+        "roiBoundaryPointsReductionFactor":   0.01,
+        "minBoundingBoxAspectRatio":          1.2,
+        "maxBoundingBoxAspectRatio":          3,
+        "minObjectsRequired":                 [["bucket"]],
+        "intersectingRoiMaxIterations":       5,
+        "intersectingRoiStepSize":            0.001,
+        "effectiveWidthYcoordMultiplier":     0.5,
+        "maxDiffBetweenAbsBucketEdgeSlopes":  3
+    }
+
+
+    '''
     shovelConfig = {
         "measuredBucketWidthCM":              300,
         "boxDetectorScoreThresholdBucket":    0.5,
@@ -125,6 +154,7 @@ if __name__ == "__main__":
         "effectiveWidthYcoordMultiplier":     0.5,
         "maxDiffBetweenAbsBucketEdgeSlopes":  3
      }
+     '''
     
     
     '''
