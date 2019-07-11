@@ -27,13 +27,16 @@ def run_FMDLAlgo():
                 
         results = fmdlAlgo.execute(b, shovelConfig)
 
+        
 
+        '''
         print('\n\n\n**********************')
         print('results')
         print(results)
         print('ser')
         ser = json.dumps(results)
         print('**********************\n\n\n')
+        '''
 
         
         print("\n\nDriver received this results:\n")
@@ -47,6 +50,8 @@ def run_FMDLAlgo():
         print("approximated_bucket_right_line: " + str(results['approximated_bucket_right_line']))
         print("approximated_bucket_mid_line: " + str(results['approximated_bucket_mid_line']))
         print("effective_width_calculations_valid: " + str(results['effective_width_calculations_valid']))
+        print("bucketWidthPoints: " + str(results['bucketWidthPoints']))
+        print('\n\n\n\n')
 
         
         inputImage = PIL.Image.open(io.BytesIO(b))
@@ -82,8 +87,8 @@ if __name__ == "__main__":
 
 
     runOnSingleImage = False
-    saveResults = True
-    displayResults = False
+    saveResults = False
+    displayResults = True
     
 
     ############################# FMDL3.0 Networks ####################################
@@ -98,40 +103,39 @@ if __name__ == "__main__":
 
 
     ############################### FMDL3.1 Networks ####################################
-    boxDetectorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/BucyrusAndPnH_Release-2_roiDelineatorVersion-1_bbDetectorVersion-1/bbDetector.pb'
-    roiDelineatorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/BucyrusAndPnH_Release-2_roiDelineatorVersion-1_bbDetectorVersion-1/roiDelineator.h5'
+    boxDetectorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Hydraulic_Release-2_roiDelineatorVersion-2_bbDetectorVersion-2/bbDetector.pb'
+    roiDelineatorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Hydraulic_Release-2_roiDelineatorVersion-2_bbDetectorVersion-2/roiDelineator.h5'
     #####################################################################################
 
 
-    testdirPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/productionBugs/releaseingFML3.2Bugs/Frame/'
-    saveResultsPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/productionBugs/releaseingFML3.2Bugs/preds/'
-    
+    testdirPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/Test_Data/Hydraulics/hsTestSet/images/'
+    saveResultsPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/Test_Data/Backhoe/outputOf_FMDL3.2_backhoeRelease2.2_widthBucketWidthsPoints/'
 
-    testFilePath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/productionBugs/releaseingFML3.2Bugs/FMDL_2018.07.31_11.15.15.png'
-    testFileName = 'FMDL_2018.07.31_11.15.15.png'
+    testFileName = '1_20180703-134700_1001n0_8767.png'
+    testFilePath = testdirPath + testFileName 
 
 
+    #Default hydraulic FMDL3.2
     shovelConfig = {
         "measuredBucketWidthCM":              300,
         "boxDetectorScoreThresholdBucket":    0.5,
         "boxDetectorScoreThresholdMatInside": 0.5,
         "boxDetectorScoreThresholdCase":      0.5,
         "roiDelineatorScoreThreshold":        0.2,
-        "minContourArea":                     12000,
+        "minContourArea":                     17000,
         "closingKernelSize":                  7,
-        "closingIterations":                  4,
+        "closingIterations":                  2,
         "erosionKernelSize":                  7,
-        "erosionIterations":                  4,
+        "erosionIterations":                  2,
         "roiBoundaryPointsReductionFactor":   0.01,
-        "minBoundingBoxAspectRatio":          1.2,
-        "maxBoundingBoxAspectRatio":          3,
-        "minObjectsRequired":                 [["bucket"]],
+        "minBoundingBoxAspectRatio":          1,
+        "maxBoundingBoxAspectRatio":          4,
+        "minObjectsRequired":                 [["matInside"]],
         "intersectingRoiMaxIterations":       5,
         "intersectingRoiStepSize":            0.001,
         "effectiveWidthYcoordMultiplier":     0.5,
         "maxDiffBetweenAbsBucketEdgeSlopes":  3
     }
-
 
     '''
     shovelConfig = {
@@ -183,22 +187,68 @@ if __name__ == "__main__":
         "boxDetectorScoreThresholdBucket":    0.5,
         "boxDetectorScoreThresholdMatInside": 0.5,
         "boxDetectorScoreThresholdCase":      0.5,
-        "roiDelineatorScoreThreshold":        0.5,
+        "roiDelineatorScoreThreshold":        0.1,
         "minContourArea":                     13000,
         "closingKernelSize":                  7,
-        "closingIterations":                  1,
+        "closingIterations":                  2,
         "erosionKernelSize":                  7,
-        "erosionIterations":                  1,
+        "erosionIterations":                  2,
         "roiBoundaryPointsReductionFactor":   0.01,
-        "minBoundingBoxAspectRatio":          1.5,
-        "maxBoundingBoxAspectRatio":          3,
-        "minObjectsRequired":                 [["bucket"]],
         "minBoundingBoxAspectRatio":          1,
-        "maxBoundingBoxAspectRatio":          5,
+        "maxBoundingBoxAspectRatio":          4,
+        "minObjectsRequired":                 [["bucket"]],
         "intersectingRoiMaxIterations":       5,
         "intersectingRoiStepSize":            0.001,
         "effectiveWidthYcoordMultiplier":     0.5,
+        "maxDiffBetweenAbsBucketEdgeSlopes":  3
      }
+
+
+    #Default hydraulic FMDL3.2
+    shovelConfig = {
+        "measuredBucketWidthCM":              300,
+        "boxDetectorScoreThresholdBucket":    0.5,
+        "boxDetectorScoreThresholdMatInside": 0.5,
+        "boxDetectorScoreThresholdCase":      0.5,
+        "roiDelineatorScoreThreshold":        0.2,
+        "minContourArea":                     17000,
+        "closingKernelSize":                  7,
+        "closingIterations":                  2,
+        "erosionKernelSize":                  7,
+        "erosionIterations":                  2,
+        "roiBoundaryPointsReductionFactor":   0.01,
+        "minBoundingBoxAspectRatio":          1,
+        "maxBoundingBoxAspectRatio":          4,
+        "minObjectsRequired":                 [["matInside"]],
+        "intersectingRoiMaxIterations":       5,
+        "intersectingRoiStepSize":            0.001,
+        "effectiveWidthYcoordMultiplier":     0.5,
+        "maxDiffBetweenAbsBucketEdgeSlopes":  3
+    }
+
+
+    #Default cable FMDL3.2
+    shovelConfig = {
+        "measuredBucketWidthCM":              300,
+        "boxDetectorScoreThresholdBucket":    0.5,
+        "boxDetectorScoreThresholdMatInside": 0.5,
+        "boxDetectorScoreThresholdCase":      0.5,
+        "roiDelineatorScoreThreshold":        0.2,
+        "minContourArea":                     12000,
+        "closingKernelSize":                  7,
+        "closingIterations":                  4,
+        "erosionKernelSize":                  7,
+        "erosionIterations":                  4,
+        "roiBoundaryPointsReductionFactor":   0.01,
+        "minBoundingBoxAspectRatio":          1.2,
+        "maxBoundingBoxAspectRatio":          3,
+        "minObjectsRequired":                 [["bucket"]],
+        "intersectingRoiMaxIterations":       5,
+        "intersectingRoiStepSize":            0.001,
+        "effectiveWidthYcoordMultiplier":     0.5,
+        "maxDiffBetweenAbsBucketEdgeSlopes":  3
+    }
+
 	##################################################################################
 
 
