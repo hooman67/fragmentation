@@ -87,8 +87,8 @@ if __name__ == "__main__":
 
 
     runOnSingleImage = False
-    saveResults = False
-    displayResults = True
+    saveResults = True
+    displayResults = False
     
 
     ############################# FMDL3.0 Networks ####################################
@@ -103,26 +103,26 @@ if __name__ == "__main__":
 
 
     ############################### FMDL3.1 Networks ####################################
-    boxDetectorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Hydraulic_Release-2_roiDelineatorVersion-2_bbDetectorVersion-2/bbDetector.pb'
-    roiDelineatorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Hydraulic_Release-2_roiDelineatorVersion-2_bbDetectorVersion-2/roiDelineator.h5'
+    boxDetectorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Backhoe_Release-2.2_roiDelineatorVersion-2_bbDetectorVersion-3/bbDetector.pb'
+    roiDelineatorNetworkPath = '/home/hooman/Desktop/currentFMDL3.1Nets/Backhoe_Release-2.2_roiDelineatorVersion-2_bbDetectorVersion-3/roiDelineator.h5'
     #####################################################################################
 
 
-    testdirPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/Test_Data/Hydraulics/hsTestSet/images/'
-    saveResultsPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/Test_Data/Backhoe/outputOf_FMDL3.2_backhoeRelease2.2_widthBucketWidthsPoints/'
+    testdirPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/Test_Data/Backhoe/forPresentationIn/'
+    saveResultsPath = '/media/hooman/New Volume/FM_PROJECT_STORAGE/Test_Data/Backhoe/forPresentationOut/'
 
     testFileName = '1_20180703-134700_1001n0_8767.png'
     testFilePath = testdirPath + testFileName 
 
 
-    #Default hydraulic FMDL3.2
+    #Default Backhoe FMDL3.2
     shovelConfig = {
         "measuredBucketWidthCM":              300,
         "boxDetectorScoreThresholdBucket":    0.5,
         "boxDetectorScoreThresholdMatInside": 0.5,
         "boxDetectorScoreThresholdCase":      0.5,
-        "roiDelineatorScoreThreshold":        0.2,
-        "minContourArea":                     17000,
+        "roiDelineatorScoreThreshold":        0.1,
+        "minContourArea":                     13000,
         "closingKernelSize":                  7,
         "closingIterations":                  2,
         "erosionKernelSize":                  7,
@@ -130,12 +130,12 @@ if __name__ == "__main__":
         "roiBoundaryPointsReductionFactor":   0.01,
         "minBoundingBoxAspectRatio":          1,
         "maxBoundingBoxAspectRatio":          4,
-        "minObjectsRequired":                 [["matInside"]],
+        "minObjectsRequired":                 [["bucket"]],
         "intersectingRoiMaxIterations":       5,
         "intersectingRoiStepSize":            0.001,
         "effectiveWidthYcoordMultiplier":     0.5,
         "maxDiffBetweenAbsBucketEdgeSlopes":  3
-    }
+     }
 
     '''
     shovelConfig = {
